@@ -5,8 +5,8 @@ Greedy based approach to the Cutting Stock problem
 std::vector<size_t> arr;
 arr.push_back(1000);
 arr.push_back(200);
-arr.push_back(3000);
-arr.push_back(3000);
+arr.push_back(2990);
+arr.push_back(2990);
 arr.push_back(400);
 arr.push_back(2000);
 arr.push_back(700);
