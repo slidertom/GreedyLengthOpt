@@ -1,7 +1,7 @@
 # GreedyLengthOpt
 Greedy based approach to the Cutting Stock problem
 
-Usage sample:
+```C++
 std::vector<size_t> arr;
 arr.push_back(1000);
 arr.push_back(200);
@@ -18,3 +18,4 @@ for (auto *pLenArray : *pResults) {
     }
 }
 delete pResults;
+```
