@@ -1,2 +1,4 @@
 /GreedyLengthOpt/Makefile
 /GreedyLengthOpt/cmake_install.cmake
+*.dll
+*.a
