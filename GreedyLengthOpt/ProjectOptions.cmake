@@ -83,7 +83,7 @@ function(set_precompiled_header)
 			set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "/Yu\"${FILENAME}\" /DUSE_PRECOMPILED_HEADERS")
 			set_source_files_properties(${SOURCE} PROPERTIES COMPILE_FLAGS "/Yc")
 		elseif(MINGW)			
-			#add_precompiled_header(${PROJECT_NAME} ${FILENAME} FORCEINCLUDE)
+			add_precompiled_header(${PROJECT_NAME} ${FILENAME} FORCEINCLUDE)
 		endif()
 endfunction(set_precompiled_header)
 

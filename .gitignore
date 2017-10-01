@@ -2,3 +2,4 @@
 /GreedyLengthOpt/cmake_install.cmake
 *.dll
 *.a
+/GreedyLengthOpt/GreedyLengthOpt_pch/*
