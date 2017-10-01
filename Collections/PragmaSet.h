@@ -2,6 +2,7 @@
 #define __PRAGMA_SET_H__
 #pragma once
 
+#ifdef _MSC_VER
 // VC10 Migration: Memory leaks
 #ifdef _DEBUG
 	#pragma comment(lib, "mfc140ud.lib")
@@ -11,7 +12,7 @@
 
 
 // Disabling
-// The given formal parameter was never referenced in the body of the function 
+// The given formal parameter was never referenced in the body of the function
 // for which it was declared
 #pragma warning  (disable : 4100)
 // nonstandard extension used : class rvalue used as lvalue
@@ -48,7 +49,7 @@
     #pragma warning(disable: 4710)
     // warning C4512: 'stlp_std::pair<_T1,_T2>' : assignment operator could not be generated
     #pragma warning(disable: 4512)
-    // non dll-interface class used as base for dll-interface 
+    // non dll-interface class used as base for dll-interface
     #pragma warning (disable : 4275)
     // needs to have dll-interface to be used by clients of class
     #pragma warning (disable : 4251)
@@ -72,14 +73,14 @@
 	#pragma warning(error: 4101)
 #else
 	//identifier : local variable is initialized but not referenced"
-	#pragma warning(default: 4189) 
+	#pragma warning(default: 4189)
 	// local variable 'name' used without having been initialized
-	#pragma warning(default: 4700) 
+	#pragma warning(default: 4700)
 	//'identifier' : unreferenced local variable
 	#pragma warning(default: 4101)
 #endif
 
-// we do no not flollow MS standart 
+// we do no not flollow MS standart
 // strcpy, fopen and other (ANSI standart) "unsafe" functions are legal.
 #define _CRT_SECURE_NO_DEPRECATE
 
@@ -93,12 +94,13 @@
 	// This file requires _WIN32_WINNT to be #defined at least to 0x0403. Value 0x0501 or higher is recommended
 	#define _WIN32_WINNT 0x0501 // Windows (VC 10 MFC requires minimal define)
 // The following macros define the minimum required platform.  The minimum required platform
-// is the earliest version of Windows, Internet Explorer etc. that has the necessary features to run 
-// your application.  The macros work by enabling all features available on platform versions up to and 
+// is the earliest version of Windows, Internet Explorer etc. that has the necessary features to run
+// your application.  The macros work by enabling all features available on platform versions up to and
 // including the version specified.
 
 // Modify the following defines if you have to target a platform prior to the ones specified below.
 // Refer to MSDN for the latest info on corresponding values for different platforms.
 #endif
+#endif // _MSC_VER
 
 #endif
