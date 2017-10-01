@@ -1,11 +1,11 @@
 include(PrecompiledHeader.cmake)
 
-set(CMAKE_CONFIGURATION_TYPES UnicodeDebug UnicodeRelease)
+set(CMAKE_CONFIGURATION_TYPES Debug Release)
 set(CMAKE_SUPPRESS_REGENERATION TRUE)
-set(CMAKE_CXX_FLAGS_UNICODEDEBUG "")
-set(CMAKE_CXX_FLAGS_UNICODERELEASE "")
-set(CMAKE_SHARED_LINKER_FLAGS_UNICODEDEBUG "")
-set(CMAKE_SHARED_LINKER_FLAGS_UNICODERELEASE "")
+set(CMAKE_CXX_FLAGS_DEBUG "")
+set(CMAKE_CXX_FLAGS_RELEASE "")
+set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "")
+set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "")
 
 get_filename_component(RootDir "${CMAKE_CURRENT_LIST_DIR}" PATH)
 
@@ -69,11 +69,14 @@ function(set_project_exe_mode)
 endfunction(set_project_exe_mode)
 
 function(set_precompiled_header)
-		add_precompiled_header(${PROJECT_NAME} stdafx.h FORCEINCLUDE)
-		#set(FILENAME "stdafx.h")
-		#set(SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/stdafx.cpp")
-        #set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "/Yu\"${FILENAME}\" /DUSE_PRECOMPILED_HEADERS")
-        #set_source_files_properties(${SOURCE} PROPERTIES COMPILE_FLAGS "/Yc")
+		if(MSVC)
+			set(FILENAME "stdafx.h")
+			set(SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/stdafx.cpp")
+			set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "/Yu\"${FILENAME}\" /DUSE_PRECOMPILED_HEADERS")
+			set_source_files_properties(${SOURCE} PROPERTIES COMPILE_FLAGS "/Yc")
+		elseif(MINGW)			
+			add_precompiled_header(${PROJECT_NAME} stdafx.h FORCEINCLUDE)
+		endif()
 endfunction(set_precompiled_header)
 
 function(set_source_non_precompiled_header filename)
@@ -82,8 +85,8 @@ endfunction(set_source_non_precompiled_header)
 
 function(set_project_compile_flags)
 		if(MSVC)
-			set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_UNICODEDEBUG "/INCREMENTAL /DEBUG:FASTLINK /SUBSYSTEM:WINDOWS /SAFESEH:NO")
-			set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_UNICODERELEASE "/INCREMENTAL:NO /DEBUG /SUBSYSTEM:WINDOWS /SAFESEH:NO /MAP")
+			set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_DEBUG "/INCREMENTAL /DEBUG:FASTLINK /SUBSYSTEM:WINDOWS /SAFESEH:NO")
+			set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/INCREMENTAL:NO /DEBUG /SUBSYSTEM:WINDOWS /SAFESEH:NO /MAP")
 		elseif(MINGW)		
 		endif()
 endfunction(set_project_compile_flags)
@@ -100,8 +103,8 @@ function(set_project_compile_options_debugrelease)
 			/Ob1		  	# Inline function expansion
 			/GF			  	# Enable string pooling
 		)
-		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeDebug>:${COMPILEOPT_DEBUG}>)
-		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeRelease>:${COMPILEOPT_RELEASE}>)
+		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:${COMPILEOPT_DEBUG}>)
+		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Release>:${COMPILEOPT_RELEASE}>)
 	elseif(MINGW)	
 	list(APPEND COMPILEOPT_DEBUG
 			-g           	# Produce debugging symbols
@@ -121,8 +124,8 @@ function(set_project_compile_options_debugrelease)
 			-std=gnu++14
 			-Wno-deprecated-declarations
 		)
-		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeDebug>:${COMPILEOPT_DEBUG}>)
-		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeRelease>:${COMPILEOPT_RELEASE}>)
+		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:${COMPILEOPT_DEBUG}>)
+		target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:Release>:${COMPILEOPT_RELEASE}>)
 	endif()
 endfunction(set_project_compile_options_debugrelease)
 
@@ -156,8 +159,8 @@ function(set_project_processor_definitions)
 	)
 	
 	target_compile_definitions(${PROJECT_NAME} PUBLIC  ${COMPILER_DEFINES})
-	target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeDebug>:${COMPILER_DEFINES_DEBUG}>)
-	target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:UnicodeRelease>:${COMPILER_DEFINES_RELEASE}>)
+	target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:${COMPILER_DEFINES_DEBUG}>)
+	target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:Release>:${COMPILER_DEFINES_RELEASE}>)
 endfunction(set_project_processor_definitions)
 
 function(set_project_definitions)
@@ -182,12 +185,12 @@ function(set_project_bin_properties)
 	set(RuntimeOutputNameDebug "${PROJECT_NAME}D")
 	
 	set_target_properties(${PROJECT_NAME} PROPERTIES 
-						RUNTIME_OUTPUT_NAME_UNICODEDEBUG ${RuntimeOutputNameDebug}
-						RUNTIME_OUTPUT_DIRECTORY_UNICODEDEBUG "${RootDir}/bin")
+						RUNTIME_OUTPUT_NAME_DEBUG ${RuntimeOutputNameDebug}
+						RUNTIME_OUTPUT_DIRECTORY_DEBUG "${RootDir}/bin")
 					  
 	set_target_properties(${PROJECT_NAME} PROPERTIES 
-						RUNTIME_OUTPUT_NAME_UNICODERELEASE ${PROJECT_NAME}
-						RUNTIME_OUTPUT_DIRECTORY_UNICODERELEASE "${RootDir}/bin")
+						RUNTIME_OUTPUT_NAME_RELEASE ${PROJECT_NAME}
+						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${RootDir}/bin")
 endfunction(set_project_bin_properties)
 
 function(set_project_bin_lib_properties LibDirPath)
@@ -196,10 +199,10 @@ function(set_project_bin_lib_properties LibDirPath)
 	set(LibraryOutputNameRelease "${PROJECT_NAME}")
 	
 	set_target_properties(${PROJECT_NAME} PROPERTIES 
-						ARCHIVE_OUTPUT_NAME_UNICODEDEBUG ${LibraryOutputNameDebug}
-						ARCHIVE_OUTPUT_DIRECTORY_UNICODEDEBUG ${LibDirPath})   #Import Library path
+						ARCHIVE_OUTPUT_NAME_DEBUG ${LibraryOutputNameDebug}
+						ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${LibDirPath})   #Import Library path
 					  
 	set_target_properties(${PROJECT_NAME} PROPERTIES 
-						ARCHIVE_OUTPUT_NAME_UNICODERELEASE ${LibraryOutputNameRelease} 
-						ARCHIVE_OUTPUT_DIRECTORY_UNICODERELEASE ${LibDirPath}) #Import Library path
+						ARCHIVE_OUTPUT_NAME_RELEASE ${LibraryOutputNameRelease} 
+						ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${LibDirPath}) #Import Library path
 endfunction(set_project_bin_lib_properties)

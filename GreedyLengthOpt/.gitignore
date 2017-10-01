@@ -1,2 +1,16 @@
 CMakeFiles
 CMakeCache.txt
+*.vcxproj
+*.filters
+*.obj
+*.sln
+*.suo
+*.sbr
+*.layout
+*.tlog
+*.cbp
+*.db
+*.ipch
+*.pch
+*.bmarks
+*.pdb
