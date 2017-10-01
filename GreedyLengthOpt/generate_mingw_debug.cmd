@@ -1,0 +1,2 @@
+cmake -G "CodeBlocks - MinGW Makefiles" -D CMAKE_BUILD_TYPE=DEBUG -D CMAKE_C_COMPILER="C:/TDM-GCC-64/bin/x86_64-w64-mingw32-gcc.exe" -D CMAKE_CXX_COMPILER="C:/TDM-GCC-64/bin/x86_64-w64-mingw32-g++.exe" .
+cmake -G "CodeBlocks - MinGW Makefiles" -D CMAKE_BUILD_TYPE=DEBUG -D CMAKE_C_COMPILER="C:/TDM-GCC-64/bin/x86_64-w64-mingw32-gcc.exe" -D CMAKE_CXX_COMPILER="C:/TDM-GCC-64/bin/x86_64-w64-mingw32-g++.exe" .
