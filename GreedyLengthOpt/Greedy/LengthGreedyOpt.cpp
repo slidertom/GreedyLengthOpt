@@ -35,7 +35,7 @@ static inline bool CompareIntStl(size_t arg1, size_t arg2) {
 }
 
 static inline void GetCountGreedy(const std::vector<size_t> &arr, size_t nTotal, size_t nSaw, CLengthOptResults &results)
-{	
+{
 	for (const CLenArray::value_type val : arr) {
 		results.AddEx(val, nTotal, nSaw);
 	}
@@ -55,12 +55,12 @@ namespace greedy_opt
 {
     CLengthOptResults *Optimize(std::vector<size_t> &arr, CLenArray::value_type nLen, size_t nSaw)
     {
-	    const size_t nMatchCount = ::RemoveMatch(arr, nLen); 
+	    const size_t nMatchCount = ::RemoveMatch(arr, nLen);
 
 	    //ASSERT(TraceLengths(arr));
 	    std::sort(arr.begin(), arr.end(), ::CompareIntStl);
 		//ASSERT(TraceLengths(arr));
-	    
+
 	    CLengthOptResults *pResults = new CLengthOptResults;
 	    const ptrdiff_t nCnt = arr.size() - 2;
 	    if ( nCnt <= 0 ) {
@@ -71,7 +71,7 @@ namespace greedy_opt
 
 	    GetCountGreedy(arr, nLen, nSaw, *pResults);
 		ASSERT(pResults->GetLengthsCount() == arr.size());
-			     
+
 	    //return nCount;
 	    ASSERT(pResults);
         #ifdef _DEBUG

@@ -4,8 +4,6 @@
 #include "Greedy/LengthGreedyOpt.h"
 
 #ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
@@ -25,14 +23,14 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
 		TRACE(L"GREEDYLENGTHOPT.DLL Initializing!\n");
-        ::DisableThreadLibraryCallsImpl(hInstance); 
+        ::DisableThreadLibraryCallsImpl(hInstance);
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{
 		TRACE(L"GREEDYLENGTHOPT.DLL Terminating!\n");
 	}
 
-	return 1;   
+	return 1;
 }
 
 CLengthOptResults *CLengthGreedyOpt::OptimizeGreedy(std::vector<size_t> &arr, size_t nLen, size_t nSaw)
