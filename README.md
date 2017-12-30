@@ -27,3 +27,4 @@ GreedyLengthOpt uses CMake as a general build tool.
 Supported compilers and platforms:   
 Microsoft Visual Studio 2015 32/64   
 Microsoft Visual Studio 2017 32/64  
+CodeBlocks TDM-GCC-32/64
