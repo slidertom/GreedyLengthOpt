@@ -10,12 +10,15 @@
     #include "Greedy/LengthOptResults.h"
 #endif
 
-class GREEDY_LENGTH_OPT_API CLengthGreedyOpt  
+class GREEDY_LENGTH_OPT_API CLengthGreedyOpt
 {
 // Static operations
 public:
 	static CLengthOptResults *OptimizeGreedy(std::vector<size_t> &arr, size_t nLen, size_t nSaw);
 };
+
+typedef void (*fnResultsCallback)(double* res, int row_count, int col_count);
+extern "C" GREEDY_LENGTH_OPT_API void Wrapper_OptimizeGreedy(const int* arr_src, const int arr_src_count, const int nLen, const int nSaw, const fnResultsCallback res_callBack);
 
 #endif
 
