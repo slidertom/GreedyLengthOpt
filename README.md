@@ -25,8 +25,8 @@ delete pResults;
 GreedyLengthOpt uses CMake as a general build tool.   
 
 Supported compilers and platforms:   
-Microsoft Visual Studio 2015 32/64  C/C++/C# 
-Microsoft Visual Studio 2017 32/64  C/C++/C#
-CodeBlocks TDM-GCC-32/64
+Microsoft Visual Studio 2015 32/64  C/C++/C# <br />
+Microsoft Visual Studio 2017 32/64  C/C++/C# <br />
+CodeBlocks TDM-GCC-32/64 <br />
 
 For C and C# languages do use C function Wrapper_OptimizeGreedy.
