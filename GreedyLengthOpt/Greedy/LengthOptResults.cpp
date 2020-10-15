@@ -124,6 +124,10 @@ size_t CLengthOptResults::GetLengthsCount() const
 
 CLengthOptResults &CLengthOptResults::operator=(const CLengthOptResults &r)
 {
+    if (this == &r) {
+        return *this;
+    }
+
 	DeleteAll();
 	reserve(r.size());
 	
@@ -175,10 +179,10 @@ void CLengthOptResults::Compact(size_t nTotalLen, size_t nSaw)
 
        CLenArray *pLastLenArray = (*this)[nLast]; 
        size_t nLastSize = pLastLenArray->size();
-       for (int i1 = 0; i1 < nLast; ++i1) {
+       for (size_t i1 = 0; i1 < nLast; ++i1) {
 		   CLenArray *pCurrLenArray = (*this)[i1];
            CLenArray::value_type nAllLen = internal::GetAllLen(*pCurrLenArray, nSaw);
-           for (int i2 = 0; i2 < nLastSize; ++i2) {
+           for (size_t i2 = 0; i2 < nLastSize; ++i2) {
                const CLenArray::value_type nLen = (*pLastLenArray)[i2];
                if ( internal::TryToAdd(nAllLen, nTotalLen, nLen) ) { 
                    nAllLen += nLen;
@@ -229,10 +233,10 @@ void CLengthOptResults::Distribute(size_t nTotalLen, size_t nSaw)
        CLenArray last_len_array = *(*this)[nLast]; // copy
        size_t nLastSize = last_len_array.size();
        std::vector<std::pair<CLenArray *, size_t>> distribution;
-       for (int i1 = 0; i1 < nLast; ++i1) {
+       for (size_t i1 = 0; i1 < nLast; ++i1) {
 		   CLenArray *pCurrLenArray = (*this)[i1];
            CLenArray::value_type nAllLen = internal::GetAllLen(*pCurrLenArray, nSaw);
-           for (int i2 = 0; i2 < nLastSize; ++i2) {
+           for (size_t i2 = 0; i2 < nLastSize; ++i2) {
                const CLenArray::value_type nLen = last_len_array[i2];
                if ( internal::TryToAdd(nAllLen, nTotalLen, nLen) ) { 
                    nAllLen += nLen;

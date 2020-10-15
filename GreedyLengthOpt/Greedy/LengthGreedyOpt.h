@@ -8,7 +8,7 @@
 
 namespace greedy_opt
 {
-    CLengthOptResults *Optimize(std::vector<size_t> &arr, CLenArray::value_type dLen, CLenArray::value_type dSaw);
+    CLengthOptResults *Optimize(std::vector<size_t> &arr, CLenArray::value_type dLen, CLenArray::value_type nSaw);
 };
 
 #endif 
