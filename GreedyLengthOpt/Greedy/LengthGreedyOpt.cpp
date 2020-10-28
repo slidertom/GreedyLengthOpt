@@ -99,6 +99,10 @@ namespace greedy_opt
             delete pResults;
             pResults = pResFirstLast;
         }
+        else {
+            delete pResFirstLast;
+        }
+
 
         ASSERT(pResults->GetLengthsCount() == arr.size());   
         //return nCount;
